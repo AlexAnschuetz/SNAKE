@@ -1,6 +1,6 @@
 var x = 575;
 var y = 250;
-var framelength = 10
+var framelength = 2
 
 
 var Canvas = document.getElementById("mycanvas");
@@ -11,26 +11,26 @@ ctx.fillRect(x,y,5,5)
 
 
 function moveRight() {
-setTimeout(moveRight, framelength)
+	setTimeout(moveRight, framelength)
 
 	if( x<1147) {
 		ctx.fillRect( x, y,5,5); 
-	 x +=1;
+	 	x +=1;
 	 	ctx.clearRect(x-1,y,1,5)
-	console.log(x)
+		console.log(x)
 	
-	clearRect(0,0,1139,489)
+		clearRect(0,0,1139,489)
 	}
 	else if (x=1147)
 	{
 		x=0;
 
 	}
-	moveRight()
+	// moveRight()
 }
 
 function moveDown() {
-setTimeout(moveDown, framelength)
+	setTimeout(moveDown, framelength)
 
 	if( y<489) {
 		ctx.fillRect( x, y,5,5);
@@ -45,7 +45,7 @@ setTimeout(moveDown, framelength)
 		y=0;
 
 	}
-	moveDown()
+	
 }
 
 function moveLeft() {
@@ -53,8 +53,8 @@ setTimeout(moveLeft, framelength)
 
 	if( x>1) {
 		ctx.fillRect( x, y,5,5); 
-	 x -=1;
-	 	ctx.clearRect(x+1,y,1,1000)
+	 	x -=1;
+	 	ctx.clearRect(x+5,y,3,5)
 	console.log(x)
 	
 	clearRect(0,0,1139,489)
@@ -64,32 +64,37 @@ setTimeout(moveLeft, framelength)
 		x=1147;
 
 	}
-	moveLeft()
+	// moveLeft()
 }
 
 
 
 function moveUp() {
-setTimeout(moveUp, framelength)
+	setTimeout(moveUp, framelength)
 
-	if( y>1) {
-		ctx.clearRect(x,y+1,5,1)
+	if( y>-5) {
+		ctx.clearRect(x,y+2,5,3)
 		
-	 y -=1;
+	 	y -=1;
 	 	ctx.fillRect( x, y,5,5); 
 	
 	
-	clearRect(0,0,1139,489)
+		clearRect(0,0,1139,489)
 	}
-	else if (y=1)
+	else if (y= -5)
 	{
+
 		y=489;
 
 	}
-	moveUp()
+	// moveUp()
 }
 
 moveRight()
+
+
+
+
 
 
 
