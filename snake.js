@@ -21,12 +21,13 @@ function moveRight() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 	 				x +=1;
-	 				ctx.clearRect(x-(2+z),y,2,6)
+	 				ctx.clearRect(x-(2+z),y,1,6)
 					
 				}
 				else if (x=1147)
 				{
 					x=0;
+					qrFoodHack()
 
 				}
 				if (moveDirection != "right") {
@@ -54,6 +55,7 @@ function moveLeft() {
 				else if (x=1)
 				{
 					x=1147;
+					qrFoodHack()
 				}
 				if (moveDirection != "left") {
 					clearInterval(moveTime)
@@ -79,6 +81,7 @@ function moveUp() {
 				{
 
 					y=489;
+					qrFoodHack()
 
 				}
 				if (moveDirection != "up") {
@@ -107,6 +110,7 @@ function moveDown() {
 				else if (y=489)
 				{
 					y=0;
+					qrFoodHack()
 
 				}
 				if (moveDirection != "down") {
@@ -152,19 +156,28 @@ addEventListener("keydown", checkKeyPressed);
 
 	function checkKeyPressed(e) {
 	if (e.keyCode == "37") {
+		
+		qrFoodHack()
 		moveLeft()
+		qrFoodHack()
 	}
 	if (e.keyCode == "38") {
 		
+		qrFoodHack()
 		moveUp()
+		qrFoodHack()
 	}
 	if (e.keyCode == "39") {
-	
+		
+		qrFoodHack()
 		moveRight()
+		qrFoodHack()
 	}
 	if (e.keyCode == "40") {
 		
+		qrFoodHack()
 		moveDown()
+		qrFoodHack()
 	}
 }
 
@@ -175,7 +188,7 @@ addEventListener("keydown", checkKeyPressed);
  function generateFood () {
  	 q = Math.ceil(Math.random()*1139)
  	 r = Math.ceil(Math.random()*489)
- 	 
+
  	ctx.fillStyle = "#000000";
 	ctx.fillRect(q,r,5,5)
 
@@ -194,6 +207,13 @@ addEventListener("keydown", checkKeyPressed);
  		z+=6
  
  	}
+}
+
+function qrFoodHack () {
+	//if (e.keyCode == "40" || "37" || "38" || "39") {
+	ctx.clearRect(0,0,1139,489)
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(q,r,5,5)
 }
 
 /*
