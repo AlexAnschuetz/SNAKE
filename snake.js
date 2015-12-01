@@ -89,6 +89,8 @@ function moveUp() {
 	}
 	// moveUp()
 }
+
+
 function startButton () {
 var rando = Math.ceil(Math.random()*4)
 console.log(rando)
@@ -110,15 +112,36 @@ document.getElementById("btn").addEventListener("click", function(){
 });
  }
  startButton()
-/*
+
+
+
+
+
 // Handle keyboard controls
 var keysPressed= {};
 
-addEventListener("keydown", function (e) {
-	delete keysPressed[e.keyCode];
+addEventListener("keydown", checkKeyPressed, false);
 
-}, false);
+	function checkKeyPressed(e) {
+	if (e.keyCode == "37") {
+	
+		moveLeft()
+	}
+	if (e.keyCode == "38") {
+		
+		moveUp()
+	}
+	if (e.keyCode == "39") {
+	
+		moveRight()
+	}
+	if (e.keyCode == "40") {
+		
+		moveDown()
+	}
+}
 
+/*
 addEventListener("keyup", function (e) {
 	keysPressed[e.keyCode] = true;
 }, false);
@@ -139,7 +162,6 @@ var update = function (modifier) {
 		moveRight()
 	}
 }
-
 */
 
 
