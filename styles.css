@@ -1,0 +1,27 @@
+#gameArea {
+	border: 2px solid black;
+width: 1149px;
+	height: 499px;
+	position: absolute;
+	left: 35px;
+}
+
+#mycanvas {
+	border: 1px solid blue;
+	left: 4px;
+	top: 4px;
+	position: absolute;
+	
+}
+
+#snakeHead {
+	width: 10px;
+	height: 10px;
+	color: pink;
+}
+
+#startButton {
+	position: absolute;
+	top: 600px;
+	right: 500px;
+}
