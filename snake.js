@@ -1,6 +1,6 @@
 var x = 575;
 var y = 250;
-var framelength = 2
+var framelength = 20
 
 
 var Canvas = document.getElementById("mycanvas");
@@ -16,7 +16,7 @@ function moveRight() {
 	if( x<1147) {
 		ctx.fillRect( x, y,5,5); 
 	 	x +=1;
-	 	ctx.clearRect(x-1,y,1,5)
+	 	ctx.clearRect(x-2,y,1,5)
 		console.log(x)
 	
 		clearRect(0,0,1139,489)
@@ -33,7 +33,7 @@ function moveDown() {
 	setTimeout(moveDown, framelength)
 
 	if( y<489) {
-		ctx.fillRect( x, y,5,5);
+		ctx.fillRect( x, y,5,7);
 	 y +=1;
 	 	ctx.clearRect(x,y-1,5,1); 
 		
@@ -54,7 +54,7 @@ setTimeout(moveLeft, framelength)
 	if( x>1) {
 		ctx.fillRect( x, y,5,5); 
 	 	x -=1;
-	 	ctx.clearRect(x+5,y,3,5)
+	 	ctx.clearRect(x+6,y,3,5)
 	console.log(x)
 	
 	clearRect(0,0,1139,489)
@@ -89,12 +89,58 @@ function moveUp() {
 	}
 	// moveUp()
 }
+function startButton () {
+var rando = Math.ceil(Math.random()*4)
+console.log(rando)
+//attempting to create start button that sends square in random direction upon press
+document.getElementById("btn").addEventListener("click", function(){
+    
+    	if (rando === 4) {
+    		moveUp()
+    	}
+    	else if (rando === 3) {
+    		moveDown()
+    	}
+    	else if (rando === 2) {
+    		moveLeft()
+    	}
+    	else if (rando === 1) {
+    		moveRight()
+    	}
+});
+ }
+ startButton()
+/*
+// Handle keyboard controls
+var keysPressed= {};
 
-moveRight()
+addEventListener("keydown", function (e) {
+	delete keysPressed[e.keyCode];
+
+}, false);
+
+addEventListener("keyup", function (e) {
+	keysPressed[e.keyCode] = true;
+}, false);
 
 
+// Update game objects
+var update = function (modifier) {
+	if (38 in keysPressed) { // Player holding up
+		moveUp()
+	}
+	if (40 in keysPressed) { // Player holding down
+		moveDown()
+	}
+	if (37 in keysPressed) { // Player holding left
+		moveLeft()
+	}
+	if (39 in keysPressed) { // Player holding right
+		moveRight()
+	}
+}
 
-
+*/
 
 
 
