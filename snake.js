@@ -1,6 +1,6 @@
 var x = 575;
 var y = 250;
-var framelength = 20
+var framelength = 2
 
 
 var Canvas = document.getElementById("mycanvas");
@@ -8,92 +8,119 @@ var ctx = Canvas.getContext("2d")
 ctx.fillStyle = "#FF0000";
 ctx.fillRect(x,y,5,5)
 
-
+var moveDirection = {}
 
 function moveRight() {
-	setTimeout(moveRight, framelength)
+	if (moveDirection != "right") {
+		moveDirection="right";
+		if (moveDirection == "right") {
+			var moveTime = setInterval(function(){
+				if( x<1147) {
+					 eatFood()
+					ctx.fillRect( x, y,5,5); 
+					ctx.fillStyle = "#FF0000";
+	 				x +=1;
+	 				ctx.clearRect(x-2,y,1,5)
+					
+				}
+				else if (x=1147)
+				{
+					x=0;
 
-	if( x<1147) {
-		ctx.fillRect( x, y,5,5); 
-	 	x +=1;
-	 	ctx.clearRect(x-2,y,1,5)
-		console.log(x)
-	
-		clearRect(0,0,1139,489)
+				}
+				if (moveDirection != "right") {
+					clearInterval(moveTime)
+				}
+			}, framelength)
+		}
 	}
-	else if (x=1147)
-	{
-		x=0;
+}
 
+
+function moveLeft() {
+	if (moveDirection != "left") {
+		moveDirection="left";
+		if (moveDirection == "left") {
+			var moveTime = setInterval(function(){
+				if( x>1) {
+					 eatFood()
+					ctx.fillRect( x, y,5,5); 
+					ctx.fillStyle = "#FF0000";
+				 	x -=1;
+				 	ctx.clearRect(x+6,y,3,5)
+					
+				}
+				else if (x=1)
+				{
+					x=1147;
+				}
+				if (moveDirection != "left") {
+					clearInterval(moveTime)
+				}
+			}, framelength)
+		}
 	}
-	// moveRight()
+}
+
+function moveUp() {
+	if (moveDirection != "up") {
+		moveDirection="up";
+		if (moveDirection == "up") {
+			var moveTime = setInterval(function(){
+				if( y>-5) {
+					 eatFood()
+					ctx.clearRect(x,y+2,5,3)
+					ctx.fillStyle = "#FF0000";
+				 	y -=1;
+				 	ctx.fillRect( x, y,5,5); 
+				}
+				else if (y= -5)
+				{
+
+					y=489;
+
+				}
+				if (moveDirection != "up") {
+					clearInterval(moveTime)
+				}
+			}, framelength)
+		}
+	}
+	// moveUp()
 }
 
 function moveDown() {
-	setTimeout(moveDown, framelength)
+	if (moveDirection != "down") {
+		moveDirection="down";
+		if (moveDirection == "down") {
+			var moveTime = setInterval(function(){
 
-	if( y<489) {
-		ctx.fillRect( x, y,5,7);
-	 y +=1;
-	 	ctx.clearRect(x,y-1,5,1); 
-		
+				if( y<489) {
+					eatFood()
+					ctx.fillRect( x, y,5,7);
+					ctx.fillStyle = "#FF0000";
+	 				y +=1;
+	 				ctx.clearRect(x,y-2,5,3); 
+						//clearRect(0,0,1139,489)
+				}		
+				else if (y=489)
+				{
+					y=0;
+
+				}
+				if (moveDirection != "down") {
+					clearInterval(moveTime)
+				}
+			}, framelength)
+		}
+	}
 	
-	clearRect(0,0,1139,489)
-	}
-	else if (y=489)
-	{
-		y=0;
-
-	}
-	
-}
-
-function moveLeft() {
-setTimeout(moveLeft, framelength)
-
-	if( x>1) {
-		ctx.fillRect( x, y,5,5); 
-	 	x -=1;
-	 	ctx.clearRect(x+6,y,3,5)
-	console.log(x)
-	
-	clearRect(0,0,1139,489)
-	}
-	else if (x=1)
-	{
-		x=1147;
-
-	}
-	// moveLeft()
-}
-
-
-
-function moveUp() {
-	setTimeout(moveUp, framelength)
-
-	if( y>-5) {
-		ctx.clearRect(x,y+2,5,3)
-		
-	 	y -=1;
-	 	ctx.fillRect( x, y,5,5); 
-	
-	
-		clearRect(0,0,1139,489)
-	}
-	else if (y= -5)
-	{
-
-		y=489;
-
-	}
-	// moveUp()
 }
 
 
 function startButton () {
 var rando = Math.ceil(Math.random()*4)
-console.log(rando)
+
 //attempting to create start button that sends square in random direction upon press
 document.getElementById("btn").addEventListener("click", function(){
     
@@ -120,11 +147,10 @@ document.getElementById("btn").addEventListener("click", function(){
 // Handle keyboard controls
 var keysPressed= {};
 
-addEventListener("keydown", checkKeyPressed, false);
+addEventListener("keydown", checkKeyPressed);
 
 	function checkKeyPressed(e) {
 	if (e.keyCode == "37") {
-	
 		moveLeft()
 	}
 	if (e.keyCode == "38") {
@@ -139,6 +165,29 @@ addEventListener("keydown", checkKeyPressed, false);
 		
 		moveDown()
 	}
+}
+
+
+
+
+
+ function generateFood () {
+ 	 q = Math.ceil(Math.random()*1139)
+ 	 r = Math.ceil(Math.random()*489)
+ 	ctx.fillStyle = "#000000";
+	ctx.fillRect(q,r,5,5)
+	
+ }
+
+ generateFood()
+
+ function eatFood () {
+ 	
+
+ 	if (     (Math.abs(x-q) < 5) && (Math.abs(y-r) < 5)  ) {
+ 		generateFood()
+ 
+ 	}
 }
 
 /*
