@@ -1,6 +1,7 @@
 var x = 575;
 var y = 250;
-var framelength = 20
+var framelength = 2
+var z = 0
 
 
 var Canvas = document.getElementById("mycanvas");
@@ -20,7 +21,7 @@ function moveRight() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 	 				x +=1;
-	 				ctx.clearRect(x-2,y,2,6)
+	 				ctx.clearRect(x-(2+z),y,2,6)
 					
 				}
 				else if (x=1147)
@@ -47,7 +48,7 @@ function moveLeft() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 				 	x -=1;
-				 	ctx.clearRect(x+6,y,6,6)
+				 	ctx.clearRect(x+(6+z),y,6,6)
 					
 				}
 				else if (x=1)
@@ -69,7 +70,7 @@ function moveUp() {
 			var moveTime = setInterval(function(){
 				if( y>-5) {
 					 eatFood()
-					ctx.clearRect(x,y+2,6,6)
+					ctx.clearRect(x,y+(2+z),6,6)
 					ctx.fillStyle = "#FF0000";
 				 	y -=1;
 				 	ctx.fillRect( x, y,5,5); 
@@ -100,7 +101,7 @@ function moveDown() {
 					ctx.fillRect( x, y,5,7);
 					ctx.fillStyle = "#FF0000";
 	 				y +=1;
-	 				ctx.clearRect(x,y-5,6,6); 
+	 				ctx.clearRect(x,y-(5+z),6,6); 
 						//clearRect(0,0,1139,489)
 				}		
 				else if (y=489)
@@ -174,6 +175,7 @@ addEventListener("keydown", checkKeyPressed);
  function generateFood () {
  	 q = Math.ceil(Math.random()*1139)
  	 r = Math.ceil(Math.random()*489)
+ 	 
  	ctx.fillStyle = "#000000";
 	ctx.fillRect(q,r,5,5)
 
@@ -187,7 +189,9 @@ addEventListener("keydown", checkKeyPressed);
 
  	if (     (Math.abs(x-q) < 5) && (Math.abs(y-r) < 5)  ) {
  		ctx.clearRect(q,r,5,5);
+
  		generateFood()
+ 		z+=6
  
  	}
 }
