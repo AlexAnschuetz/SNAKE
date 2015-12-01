@@ -176,7 +176,8 @@ addEventListener("keydown", checkKeyPressed);
  	 r = Math.ceil(Math.random()*489)
  	ctx.fillStyle = "#000000";
 	ctx.fillRect(q,r,5,5)
-	
+
+
  }
 
  generateFood()
@@ -185,6 +186,7 @@ addEventListener("keydown", checkKeyPressed);
  	
 
  	if (     (Math.abs(x-q) < 5) && (Math.abs(y-r) < 5)  ) {
+ 		ctx.clearRect(q,r,5,5);
  		generateFood()
  
  	}
