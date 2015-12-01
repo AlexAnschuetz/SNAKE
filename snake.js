@@ -1,6 +1,6 @@
 var x = 575;
 var y = 250;
-var framelength = 2
+var framelength = 20
 
 
 var Canvas = document.getElementById("mycanvas");
@@ -20,7 +20,7 @@ function moveRight() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 	 				x +=1;
-	 				ctx.clearRect(x-2,y,1,5)
+	 				ctx.clearRect(x-2,y,2,6)
 					
 				}
 				else if (x=1147)
@@ -47,7 +47,7 @@ function moveLeft() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 				 	x -=1;
-				 	ctx.clearRect(x+6,y,3,5)
+				 	ctx.clearRect(x+6,y,6,6)
 					
 				}
 				else if (x=1)
@@ -69,7 +69,7 @@ function moveUp() {
 			var moveTime = setInterval(function(){
 				if( y>-5) {
 					 eatFood()
-					ctx.clearRect(x,y+2,5,3)
+					ctx.clearRect(x,y+2,6,6)
 					ctx.fillStyle = "#FF0000";
 				 	y -=1;
 				 	ctx.fillRect( x, y,5,5); 
@@ -100,7 +100,7 @@ function moveDown() {
 					ctx.fillRect( x, y,5,7);
 					ctx.fillStyle = "#FF0000";
 	 				y +=1;
-	 				ctx.clearRect(x,y-2,5,3); 
+	 				ctx.clearRect(x,y-5,6,6); 
 						//clearRect(0,0,1139,489)
 				}		
 				else if (y=489)
