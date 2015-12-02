@@ -14,11 +14,7 @@ ctx.fillStyle = "#FF0000";
 ctx.fillRect(x,y,5,5)
 
 
-setInterval(increaseDifficulty, 5000)
-	//above makes snake speed up as game goes on
 
-setInterval( qrFoodHack, 100)
-	//resets booard frequently to clear snake trail
 
 
 function increaseDifficulty() {
@@ -34,6 +30,7 @@ function moveRight() {
 			var moveTime = setInterval(function(){
 				if( x<1147) {
 					 eatFood()
+					 eatBigFood()
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 	 				x +=1*modifier;
@@ -43,7 +40,8 @@ function moveRight() {
 				else if (x=1147)
 				{
 					x=0;
-					qrFoodHack()
+					FoodHack()
+				
 
 				}
 				if (moveDirection != "right") {
@@ -62,6 +60,7 @@ function moveLeft() {
 			var moveTime = setInterval(function(){
 				if( x>1) {
 					 eatFood()
+					 eatBigFood()
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 				 	x -=1*modifier;
@@ -71,7 +70,8 @@ function moveLeft() {
 				else if (x=1)
 				{
 					x=1147;
-					qrFoodHack()
+					FoodHack()
+					
 				}
 				if (moveDirection != "left") {
 					clearInterval(moveTime)
@@ -88,6 +88,7 @@ function moveUp() {
 			var moveTime = setInterval(function(){
 				if( y>-5) {
 					 eatFood()
+					 eatBigFood()
 					ctx.clearRect(x,y+(2+z),6,6)
 					ctx.fillStyle = "#FF0000";
 				 	y -=1*modifier;
@@ -97,7 +98,8 @@ function moveUp() {
 				{
 
 					y=489;
-					qrFoodHack()
+					FoodHack()
+					
 
 				}
 				if (moveDirection != "up") {
@@ -117,6 +119,7 @@ function moveDown() {
 
 				if( y<489) {
 					eatFood()
+					eatBigFood()
 					ctx.fillRect( x, y,5,7);
 					ctx.fillStyle = "#FF0000";
 	 				y +=1*modifier;
@@ -126,7 +129,8 @@ function moveDown() {
 				else if (y=489)
 				{
 					y=0;
-					qrFoodHack()
+					FoodHack()
+				
 
 				}
 				if (moveDirection != "down") {
@@ -172,6 +176,11 @@ function clickStartMandatory() {
 document.getElementById('btn').addEventListener("click", function() {
 	clicked = 1;
 	enableArrowKeys()
+	setInterval(increaseDifficulty, 5000)
+	//above makes snake speed up as game goes on
+
+	//setInterval( qrFoodHack, 100)
+	//resets booard frequently to clear snake trail
 
 }
 )
@@ -187,25 +196,29 @@ addEventListener("keydown", checkKeyPressed);
 		
 		
 		moveLeft()
-		qrFoodHack()
+		FoodHack()
+		
 	}
 	if (e.keyCode == "38") {
 		
 		
 		moveUp()
-		qrFoodHack()
+		FoodHack()
+	
 	}
 	if (e.keyCode == "39") {
 		
 		
 		moveRight()
-		qrFoodHack()
+		FoodHack()
+	
 	}
 	if (e.keyCode == "40") {
 		
 	
 		moveDown()
-		qrFoodHack()
+		FoodHack()
+		
 	}
 }
 }
@@ -217,8 +230,8 @@ addEventListener("keydown", checkKeyPressed);
 clickStartMandatory()
 
  function generateFood () {
- 	 q = Math.ceil(Math.random()*1138)
- 	 r = Math.ceil(Math.random()*488)
+ 	 q = Math.ceil(Math.random()*1137)
+ 	 r = Math.ceil(Math.random()*487)
 
  	ctx.fillStyle = "#000000";
 	ctx.fillRect(q,r,5,5)
@@ -241,12 +254,40 @@ clickStartMandatory()
  	}
 }
 
-function qrFoodHack () {
+function FoodHack () {
 	//if (e.keyCode == "40" || "37" || "38" || "39") {
 	ctx.clearRect(0,0,1139,489)
 	ctx.fillStyle = "#000000";
 	ctx.fillRect(q,r,5,5)
+	ctx.fillStyle = "#00FF00";
+	ctx.fillRect(b,n,10,10)
 }
+
+
+
+function generateBigFood () {
+	b = Math.ceil(Math.random()*1137)
+	n = Math.ceil(Math.random()*487)
+
+	ctx.fillStyle = "#00FF00";
+	ctx.fillRect(b,n,10,10)
+}
+
+generateBigFood()
+
+function eatBigFood () {
+	if(		(Math.abs(x-b) < 10) && (Math.abs(y-n) < 10) ) {
+		ctx.clearRect(b,n,10,10)
+		t+=50
+		document.getElementById('score').innerHTML = t
+		generateBigFood()
+		z+=12
+	}
+}
+
+
+
+
 
 /*
 addEventListener("keyup", function (e) {
