@@ -25,3 +25,17 @@ width: 1149px;
 	top: 600px;
 	right: 500px;
 }
+
+#score {
+	display: inline;
+	height: 90px;
+	width: 150px;
+}
+
+#positionMe {
+	height: 100px;
+	width: 200px;
+	position: absolute;
+	right: 400px;
+	top: 25px;
+}

@@ -1,15 +1,23 @@
 var x = 575;
 var y = 250;
-var framelength = 2
-var z = 0
+var framelength = 2;
+var z = 0;
+var t = 0;
 var clicked = 0;
 var keysPressed= {};
-var moveDirection = {}
+var moveDirection = {};
+var modifier = 1
 
 var Canvas = document.getElementById("mycanvas");
 var ctx = Canvas.getContext("2d")
 ctx.fillStyle = "#FF0000";
 ctx.fillRect(x,y,5,5)
+
+setInterval(increaseDifficulty, 5000)
+
+function increaseDifficulty() {
+modifier += .1
+}
 
 
 
@@ -22,7 +30,7 @@ function moveRight() {
 					 eatFood()
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
-	 				x +=1;
+	 				x +=1*modifier;
 	 				ctx.clearRect(x-(2+z),y,1,6)
 					
 				}
@@ -50,7 +58,7 @@ function moveLeft() {
 					 eatFood()
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
-				 	x -=1;
+				 	x -=1*modifier;
 				 	ctx.clearRect(x+(6+z),y,6,6)
 					
 				}
@@ -76,7 +84,7 @@ function moveUp() {
 					 eatFood()
 					ctx.clearRect(x,y+(2+z),6,6)
 					ctx.fillStyle = "#FF0000";
-				 	y -=1;
+				 	y -=1*modifier;
 				 	ctx.fillRect( x, y,5,5); 
 				}
 				else if (y= -5)
@@ -105,7 +113,7 @@ function moveDown() {
 					eatFood()
 					ctx.fillRect( x, y,5,7);
 					ctx.fillStyle = "#FF0000";
-	 				y +=1;
+	 				y +=1*modifier;
 	 				ctx.clearRect(x,y-(5+z),6,6); 
 						//clearRect(0,0,1139,489)
 				}		
@@ -218,7 +226,8 @@ clickStartMandatory()
 
  	if (     (Math.abs(x-q) < 5) && (Math.abs(y-r) < 5)  ) {
  		ctx.clearRect(q,r,5,5);
-
+ 		t+=25
+ 		document.getElementById('score').innerHTML = t 
  		generateFood()
  		z+=6
  
