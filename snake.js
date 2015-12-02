@@ -2,14 +2,16 @@ var x = 575;
 var y = 250;
 var framelength = 2
 var z = 0
-
+var clicked = 0;
+var keysPressed= {};
+var moveDirection = {}
 
 var Canvas = document.getElementById("mycanvas");
 var ctx = Canvas.getContext("2d")
 ctx.fillStyle = "#FF0000";
 ctx.fillRect(x,y,5,5)
 
-var moveDirection = {}
+
 
 function moveRight() {
 	if (moveDirection != "right") {
@@ -150,40 +152,54 @@ document.getElementById("btn").addEventListener("click", function(){
 
 
 // Handle keyboard controls
-var keysPressed= {};
 
+
+
+function clickStartMandatory() {
+document.getElementById('btn').addEventListener("click", function() {
+	clicked = 1;
+	enableArrowKeys()
+}
+)
+}
+
+function enableArrowKeys() {
+if (clicked === 1) {
 addEventListener("keydown", checkKeyPressed);
 
 	function checkKeyPressed(e) {
 	if (e.keyCode == "37") {
 		
-		qrFoodHack()
+		
 		moveLeft()
 		qrFoodHack()
 	}
 	if (e.keyCode == "38") {
 		
-		qrFoodHack()
+		
 		moveUp()
 		qrFoodHack()
 	}
 	if (e.keyCode == "39") {
 		
-		qrFoodHack()
+		
 		moveRight()
 		qrFoodHack()
 	}
 	if (e.keyCode == "40") {
 		
-		qrFoodHack()
+	
 		moveDown()
 		qrFoodHack()
 	}
+}
+}
 }
 
 
 
 
+clickStartMandatory()
 
  function generateFood () {
  	 q = Math.ceil(Math.random()*1139)
