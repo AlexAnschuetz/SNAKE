@@ -13,7 +13,13 @@ var ctx = Canvas.getContext("2d")
 ctx.fillStyle = "#FF0000";
 ctx.fillRect(x,y,5,5)
 
+
 setInterval(increaseDifficulty, 5000)
+	//above makes snake speed up as game goes on
+
+setInterval( qrFoodHack, 100)
+	//resets booard frequently to clear snake trail
+
 
 function increaseDifficulty() {
 modifier += .1
@@ -158,7 +164,6 @@ document.getElementById("btn").addEventListener("click", function(){
 
 
 
-
 // Handle keyboard controls
 
 
@@ -167,12 +172,14 @@ function clickStartMandatory() {
 document.getElementById('btn').addEventListener("click", function() {
 	clicked = 1;
 	enableArrowKeys()
+
 }
 )
 }
 
 function enableArrowKeys() {
 if (clicked === 1) {
+
 addEventListener("keydown", checkKeyPressed);
 
 	function checkKeyPressed(e) {
@@ -210,8 +217,8 @@ addEventListener("keydown", checkKeyPressed);
 clickStartMandatory()
 
  function generateFood () {
- 	 q = Math.ceil(Math.random()*1139)
- 	 r = Math.ceil(Math.random()*489)
+ 	 q = Math.ceil(Math.random()*1138)
+ 	 r = Math.ceil(Math.random()*488)
 
  	ctx.fillStyle = "#000000";
 	ctx.fillRect(q,r,5,5)
