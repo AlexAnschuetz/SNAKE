@@ -14,6 +14,31 @@ var ctx = Canvas.getContext("2d")
 ctx.fillStyle = "#FF0000";
 ctx.fillRect(x,y,5,5)
 
+//setInterval(
+	generateEvilBarrier()
+	//, 5000)
+
+
+
+
+var displayBarrier = function () {
+	ctx.fillStyle = "#FFD700";
+	ctx.fillRect( xONE,0, 1 ,489 )
+	ctx.fillRect(0, yONE , 1139 ,1 )
+	ctx.fillRect(xTWO,0, 1 ,489 )
+	ctx.fillRect(0, yTWO,1139 , 1 )
+
+
+}
+
+var removeBarrier = function () {
+	ctx.clearRect( xONE,0, 1 ,489 )
+	ctx.clearRect(0, yONE , 1139 ,1 )
+	ctx.clearRect(xTWO,0, 1 ,489 )
+	ctx.clearRect(0, yTWO,1139 , 1 )
+}
+
+
 
 
 
@@ -35,8 +60,9 @@ function moveRight() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 	 				x +=1*modifier;
-	 				ctx.clearRect(x-(2+z),y,1,6)
-	 				testEvilBarrier()
+	 				ctx.clearRect(x-(2+z),y,1*modifier,6)
+	 				
+	 				
 					
 				}
 				else if (x=1147)
@@ -66,8 +92,9 @@ function moveLeft() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 				 	x -=1*modifier;
-				 	ctx.clearRect(x+(6+z),y,6,6)
-				 	testEvilBarrier()
+				 	ctx.clearRect(x+(6+z),y,6*modifier,6)
+				 	
+				 	
 					
 				}
 				else if (x=1)
@@ -92,11 +119,12 @@ function moveUp() {
 				if( y>-5) {
 					 eatFood()
 					 eatBigFood()
-					ctx.clearRect(x,y+(2+z),6,6)
+					ctx.clearRect(x,y+(2+z),6,6*modifier)
 					ctx.fillStyle = "#FF0000";
 				 	y -=1*modifier;
 				 	ctx.fillRect( x, y,5,5); 
-				 	testEvilBarrier()
+				 	
+				 	
 				}
 				else if (y= -5)
 				{
@@ -127,8 +155,9 @@ function moveDown() {
 					ctx.fillRect( x, y,5,7);
 					ctx.fillStyle = "#FF0000";
 	 				y +=1*modifier;
-	 				ctx.clearRect(x,y-(5+z),6,6);
-	 				testEvilBarrier() 
+	 				ctx.clearRect(x,y-(5+z),6,6*modifier);
+	 				
+	 				
 	 				
 						//clearRect(0,0,1139,489)
 				}		
@@ -169,7 +198,7 @@ document.getElementById("btn").addEventListener("click", function(){
     	}
 });
  }
- startButton()
+
 
 
 
@@ -233,8 +262,6 @@ addEventListener("keydown", checkKeyPressed);
 
 
 
-clickStartMandatory()
-
  function generateFood () {
  	 q = Math.ceil(Math.random()*1137)
  	 r = Math.ceil(Math.random()*487)
@@ -245,7 +272,7 @@ clickStartMandatory()
 
  }
 
- generateFood()
+
 
  function eatFood () {
  	
@@ -269,11 +296,11 @@ function FoodHack () {
 	ctx.fillStyle = "#00FF00";
 	ctx.fillRect(b,n,10,10)
 
-	ctx.fillStyle = "#FFD700";
+	/*ctx.fillStyle = "#FFD700";
 	ctx.fillRect(xONE,0, 1 ,489 )
 	ctx.fillRect(0,yONE, 1139 ,1 )
 	ctx.fillRect(xTWO,0, 1 ,489 )
-	ctx.fillRect(0,yTWO,1139 , 1 )
+	ctx.fillRect(0,yTWO,1139 , 1 ) */
 }
 
 
@@ -286,7 +313,7 @@ function generateBigFood () {
 	ctx.fillRect(b,n,10,10)
 }
 
-generateBigFood()
+
 
 function eatBigFood () {
 	if(		(Math.abs(x-b) < 10) && (Math.abs(y-n) < 10) ) {
@@ -298,45 +325,52 @@ function eatBigFood () {
 	}
 }
 
-function generateEvilBarrier () {
-
+function generateEvilBarrier() {
+ if (clicked == 1) {
 	xONE = Math.ceil(Math.random()*1137)
 	yONE = Math.ceil(Math.random()*487)
 	xTWO = Math.ceil(Math.random()*1137)
 	yTWO = Math.ceil(Math.random()*487)
 
-	ctx.fillStyle = "#FFD700";
-	ctx.fillRect( xONE,0, 1 ,489 )
-	ctx.fillRect(0, yONE , 1139 ,1 )
-	ctx.fillRect(xTWO,0, 1 ,489 )
-	ctx.fillRect(0, yTWO,1139 , 1 )
+	//everytime evil barrier is generated i want to run the following for some amount of time
+setInterval(displayBarrier, 100)
+setTimeout(clearInterval(displayBarrier), 60000)
+setTimeout(makeNull,60000)
+
+	}
+}
+
+function makeNull () {
+	xONE = null
+	yONE = null
+	xTWO = null
+	yTWO = null
 }
 
 
-generateEvilBarrier()
-
 function testEvilBarrier() {
-	if ((Math.abs(x-xONE) < 2) || (Math.abs(y-yONE) < 2) ) {
+	if ((Math.abs(x-xONE) < 10) || (Math.abs(y-yONE) < 10) ) {
 		alert("You touched the evil barrier. You Lose !")
 		
 	}
-	if ((Math.abs(x-xTWO) < 2) || (Math.abs(y-yTWO) < 2) ) {
-		alert("You touche the evil barrier. You Lose!")
+	if ((Math.abs(x-xTWO) < 10) || (Math.abs(y-yTWO) < 10) ) {
+		alert("You touched the evil barrier. You Lose!")
 		
 	}
 }
 
 
 
-
+startButton()
+clickStartMandatory()
+generateFood()
+generateBigFood()
 
 
 /*
 addEventListener("keyup", function (e) {
 	keysPressed[e.keyCode] = true;
 }, false);
-
-
 // Update game objects
 var update = function (modifier) {
 	if (38 in keysPressed) { // Player holding up

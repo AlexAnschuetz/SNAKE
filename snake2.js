@@ -1,219 +1,388 @@
-var mycanvas = document.getElementById('mycanvas');
-    var ctx = mycanvas.getContext('2d');
-    var snakeSize = 10; 
-    var w = 350;
-    var h = 350;
-    var score = 0;
-    var snake;
-    var snakeSize = 10;
-    var food;
+var x = 575;
+var y = 250;
+var framelength = 2;
+var z = 0;
+var t = 0;
+var clicked = 0;
+var keysPressed= {};
+var moveDirection = {};
+var modifier = 1
+
+
+var Canvas = document.getElementById("mycanvas");
+var ctx = Canvas.getContext("2d")
+ctx.fillStyle = "#FF0000";
+ctx.fillRect(x,y,5,5)
+
+setInterval(generateEvilBarrier, 5000)
 
 
 
-// Module pattern
-var drawModule = (function () { 
-    var bodySnake = function(x, y) {
-        // This is the single square
-        ctx.fillStyle = 'green';
-        ctx.fillRect(x*snakeSize, y*snakeSize, snakeSize, snakeSize);
-        // This is the border of the square
-        ctx.strokeStyle = 'darkgreen';
-        ctx.strokeRect(x*snakeSize, y*snakeSize, snakeSize, snakeSize);
-    }
- 
-    var pizza = function(x, y) {
-        // This is the border of the pizza
-        ctx.fillStyle = 'yellow';
-        ctx.fillRect(x*snakeSize, y*snakeSize, snakeSize, snakeSize);
-        // This is the single square 
-        ctx.fillStyle = 'red';
-        ctx.fillRect(x*snakeSize+1, y*snakeSize+1, snakeSize-2, snakeSize-2);
-    }
- 
-    var scoreText = function() {
-        // How many pizzas did the snake eat
-        var score_text = "Score: " + score;
-        ctx.fillStyle = 'blue';
-        ctx.fillText(score_text, 145, h-5);
-    }
+var displayBarrier = function () {
+	ctx.fillStyle = "#FFD700";
+	ctx.fillRect( xONE,0, 1 ,489 )
+	ctx.fillRect(0, yONE , 1139 ,1 )
+	ctx.fillRect(xTWO,0, 1 ,489 )
+	ctx.fillRect(0, yTWO,1139 , 1 )
 
- var drawSnake = function() {
-        // Initially the body of the snake will be formed by 5 squares.
-        var length = 4;
-        snake = [];
-        
-        // Using a for loop we push the 5 elements inside the array(squares).
-        // Every element will have x = 0 and the y will take the value of the index.
-        for (var i = length; i>=0; i--) {
-            snake.push({x:i, y:0});
-        }  
-    }
-
-     var createFood = function() {
-          food = {
-            //Generate random numbers.
-            x: Math.floor((Math.random() * 30) + 1),
-            y: Math.floor((Math.random() * 30) + 1)
-        }
-        
-        //Look at the position of the snake’s body.
-        for (var i=0; i>snake.length; i++) {
-            var snakeX = snake[i].x;
-            var snakeY = snake[i].y;
-            
-             if (food.x===snakeX || food.y === snakeY || food.y === snakeY && food.x===snakeX) {
-                food.x = Math.floor((Math.random() * 30) + 1);
-                food.y = Math.floor((Math.random() * 30) + 1);
-            }
-        }
-    }
-
-     var checkCollision = function(x, y, array) {
-        for(var i = 0; i < array.length; i++) {
-            if(array[i].x === x && array[i].y === y)
-            return true;
-        } 
-        return false;
-    }
-
-    var paint = function () {
-    //Let's draw the space in which the snake will move.
-    ctx.fillStyle = 'lightgrey';
-    ctx.fillRect(0, 0, w, h);
- 
-    //Give it a border.
-    ctx.strokeStyle = 'black';
-    ctx.strokeRect(0, 0, w, h);
- 
-    //Disable the button _start_ while you're playing.
-    btn.setAttribute('disabled', true);
- 
-    var snakeX = snake[0].x;
-    var snakeY = snake[0].y;
- 
-    /*
-    Make the snake move.
-    Use a variable ('direction') to control the movement.
-    To move the snake, pop out the last element of the array and shift it on the top as first element.
-    */
-    if (direction == 'right') {
-        snakeX++;
-    } else if (direction == 'left') {
-        snakeX--;
-    } else if (direction == 'up') {
-        snakeY--;
-    } else if (direction == 'down') {
-        snakeY++;
-    }
- 
-    /*
-    If the snake touches the canvas path or itself, it will die!
-    Therefore if x or y of an element of the snake, don't fit inside the canvas, the game will be stopped.
-    If the check_collision is true, it means the the snake has crashed on its body itself, then the game will be stopped again. 
-    */
-    if (snakeX == -1 || snakeX == w / snakeSize || snakeY == -1 || snakeY == h / snakeSize || check_collision(snakeX, snakeY, snake)) {
-        //Stop the game.
- 
-        //Make the start button enabled again.
-        btn.removeAttribute('disabled', true);
- 
-        //Clean up the canvas.
-        ctx.clearRect(0, 0, w, h);
-        gameloop = clearInterval(gameloop);
-        return;
-    }
- 
-    //If the snake eats food it becomes longer and this means that, in this case, you shouldn't pop out the last element of the array.
-    if (snakeX == food.x && snakeY == food.y) {
-        //Create a new square instead of moving the tail.
-        var tail = {
-            x: snakeX,
-            y: snakeY
-        };
-        score++;
- 
-        //Create new food.
-        createFood();
-    } else {
- 
-        //Pop out the last cell.
-        var tail = snake.pop();
-        tail.x = snakeX;
-        tail.y = snakeY;
-    }
- 
-    //Puts the tail as the first cell.
-    snake.unshift(tail);
- 
-    //For each element of the array create a square using the bodySnake function we created before.
-    for (var i = 0; i < snake.length; i++) {
-        bodySnake(snake[i].x, snake[i].y);
-    }
- 
-    //Create food using the _pizza_ function.
-    pizza(food.x, food.y);
- 
-    //Put the score text.
-    scoreText();
+	if ((Math.abs(x-xONE) < 2) || (Math.abs(y-yONE) < 2) ) {
+		alert("You touched the evil barrier. You Lose !")
+		
+	}
+	if ((Math.abs(x-xTWO) < 2) || (Math.abs(y-yTWO) < 2) ) {
+		alert("You touche the evil barrier. You Lose!")
+		
+	}
 }
 
-var init = function () {
-      direction = 'down';
-      drawSnake();
-      createFood();
-      gameloop = setInterval(paint, 80);
-  }
- 
-  //You need to return only the _init_ function at the end of the Module.
-  return {
-      init: init
-  };
- 
-  //Close the Module.    
-}());
+var removeBarrier = function () {
+	ctx.clearRect( xONE,0, 1 ,489 )
+	ctx.clearRect(0, yONE , 1139 ,1 )
+	ctx.clearRect(xTWO,0, 1 ,489 )
+	ctx.clearRect(0, yTWO,1139 , 1 )
+}
 
-(function (window, document, drawModule, undefined) {
+
+
+
+
+
+function increaseDifficulty() {
+modifier += .1
+}
+
+
+
+function moveRight() {
+	if (moveDirection != "right") {
+		moveDirection="right";
+		if (moveDirection == "right") {
+			var moveTime = setInterval(function(){
+				if( x<1147) {
+					 eatFood()
+					 eatBigFood()
+					ctx.fillRect( x, y,5,5); 
+					ctx.fillStyle = "#FF0000";
+	 				x +=1*modifier;
+	 				ctx.clearRect(x-(2+z),y,1,6)
+	 				testEvilBarrier()
+	 				displayBarrier
+					
+				}
+				else if (x=1147)
+				{
+					x=0;
+					FoodHack()
+				
+
+				}
+				if (moveDirection != "right") {
+					clearInterval(moveTime)
+				}
+			}, framelength)
+		}
+	}
+}
+
+
+function moveLeft() {
+	if (moveDirection != "left") {
+		moveDirection="left";
+		if (moveDirection == "left") {
+			var moveTime = setInterval(function(){
+				if( x>1) {
+					 eatFood()
+					 eatBigFood()
+					ctx.fillRect( x, y,5,5); 
+					ctx.fillStyle = "#FF0000";
+				 	x -=1*modifier;
+				 	ctx.clearRect(x+(6+z),y,6,6)
+				 	testEvilBarrier()
+				 	displayBarrier
+					
+				}
+				else if (x=1)
+				{
+					x=1147;
+					FoodHack()
+					
+				}
+				if (moveDirection != "left") {
+					clearInterval(moveTime)
+				}
+			}, framelength)
+		}
+	}
+}
+
+function moveUp() {
+	if (moveDirection != "up") {
+		moveDirection="up";
+		if (moveDirection == "up") {
+			var moveTime = setInterval(function(){
+				if( y>-5) {
+					 eatFood()
+					 eatBigFood()
+					ctx.clearRect(x,y+(2+z),6,6)
+					ctx.fillStyle = "#FF0000";
+				 	y -=1*modifier;
+				 	ctx.fillRect( x, y,5,5); 
+				 	testEvilBarrier()
+				 	displayBarrier
+				}
+				else if (y= -5)
+				{
+
+					y=489;
+					FoodHack()
+					
+
+				}
+				if (moveDirection != "up") {
+					clearInterval(moveTime)
+				}
+			}, framelength)
+		}
+	}
+	// moveUp()
+}
+
+function moveDown() {
+	if (moveDirection != "down") {
+		moveDirection="down";
+		if (moveDirection == "down") {
+			var moveTime = setInterval(function(){
+
+				if( y<489) {
+					eatFood()
+					eatBigFood()
+					ctx.fillRect( x, y,5,7);
+					ctx.fillStyle = "#FF0000";
+	 				y +=1*modifier;
+	 				ctx.clearRect(x,y-(5+z),6,6);
+	 				testEvilBarrier() 
+	 				displayBarrier
+	 				
+						//clearRect(0,0,1139,489)
+				}		
+				else if (y=489)
+				{
+					y=0;
+					FoodHack()
+				
+
+				}
+				if (moveDirection != "down") {
+					clearInterval(moveTime)
+				}
+			}, framelength)
+		}
+	}
+	
+}
+
+
+function startButton () {
+var rando = Math.ceil(Math.random()*4)
+
+//attempting to create start button that sends square in random direction upon press
+document.getElementById("btn").addEventListener("click", function(){
+    
+    	if (rando === 4) {
+    		moveUp()
+    	}
+    	else if (rando === 3) {
+    		moveDown()
+    	}
+    	else if (rando === 2) {
+    		moveLeft()
+    	}
+    	else if (rando === 1) {
+    		moveRight()
+    	}
+});
+ }
+ startButton()
+
+
+
+
+// Handle keyboard controls
+
+
+
+function clickStartMandatory() {
+document.getElementById('btn').addEventListener("click", function() {
+	clicked = 1;
+	enableArrowKeys()
+	setInterval(increaseDifficulty, 5000)
+	//above makes snake speed up as game goes on
+
+	//setInterval( qrFoodHack, 100)
+	//resets booard frequently to clear snake trail
+
+}
+)
+}
+
+function enableArrowKeys() {
+if (clicked === 1) {
+
+addEventListener("keydown", checkKeyPressed);
+
+	function checkKeyPressed(e) {
+	if (e.keyCode == "37") {
+		
+		
+		moveLeft()
+		FoodHack()
+		
+	}
+	if (e.keyCode == "38") {
+		
+		
+		moveUp()
+		FoodHack()
+	
+	}
+	if (e.keyCode == "39") {
+		
+		
+		moveRight()
+		FoodHack()
+	
+	}
+	if (e.keyCode == "40") {
+		
+	
+		moveDown()
+		FoodHack()
+		
+	}
+}
+}
+}
+
+
+
+
+clickStartMandatory()
+
+ function generateFood () {
+ 	 q = Math.ceil(Math.random()*1137)
+ 	 r = Math.ceil(Math.random()*487)
+
+ 	ctx.fillStyle = "#000000";
+	ctx.fillRect(q,r,5,5)
+
+
+ }
+
+ generateFood()
+
+ function eatFood () {
+ 	
+
+ 	if (     (Math.abs(x-q) < 5) && (Math.abs(y-r) < 5)  ) {
+ 		ctx.clearRect(q,r,5,5);
+ 		t+=25
+ 		document.getElementById('score').innerHTML = t 
+ 		generateFood()
+ 		z+=6
  
-    //Connect the button in the html with the _init_ function.
-    var btn = document.getElementById('btn');
-    btn.addEventListener("click", function () {
-        drawModule.init();
-    });
- 
-    document.onkeydown = function (event) {
- 
-        keyCode = window.event.keyCode;
-        keyCode = event.keyCode;
- 
-        switch (keyCode) {
- 
-        case 37:
-            if (direction != 'right') {
-                direction = 'left';
-            }
-            console.log('left');
-            break;
- 
-        case 39:
-            if (direction != 'left') {
-                direction = 'right';
-                console.log('right');
-            }
-            break;
- 
-        case 38:
-            if (direction != 'down') {
-                direction = 'up';
-                console.log('up');
-            }
-            break;
- 
-        case 40:
-            if (direction != 'up') {
-                direction = 'down';
-                console.log('down');
-            }
-            break;
-        }
-    }
-})(window, document, drawModule);
+ 	}
+}
+
+function FoodHack () {
+	//if (e.keyCode == "40" || "37" || "38" || "39") {
+	ctx.clearRect(0,0,1139,489)
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(q,r,5,5)
+
+	ctx.fillStyle = "#00FF00";
+	ctx.fillRect(b,n,10,10)
+
+	ctx.fillStyle = "#FFD700";
+	ctx.fillRect(xONE,0, 1 ,489 )
+	ctx.fillRect(0,yONE, 1139 ,1 )
+	ctx.fillRect(xTWO,0, 1 ,489 )
+	ctx.fillRect(0,yTWO,1139 , 1 )
+}
+
+
+
+function generateBigFood () {
+	b = Math.ceil(Math.random()*1137)
+	n = Math.ceil(Math.random()*487)
+
+	ctx.fillStyle = "#00FF00";
+	ctx.fillRect(b,n,10,10)
+}
+
+generateBigFood()
+
+function eatBigFood () {
+	if(		(Math.abs(x-b) < 10) && (Math.abs(y-n) < 10) ) {
+		ctx.clearRect(b,n,10,10)
+		t+=50
+		document.getElementById('score').innerHTML = t
+		generateBigFood()
+		z+=12
+	}
+}
+
+function generateEvilBarrier () {
+
+	xONE = Math.ceil(Math.random()*1137)
+	yONE = Math.ceil(Math.random()*487)
+	xTWO = Math.ceil(Math.random()*1137)
+	yTWO = Math.ceil(Math.random()*487)
+
+	//everytime evil barrier is generated i want to run the following for some amount of time
+setInterval(displayBarrier, 100)
+setTimeout(clearInterval(displayBarrier), 3000)
+//setTimeout(removeBarrier,2995)
+
+	
+}
+
+
+
+
+/*
+function testEvilBarrier() {
+	
+}
+*/
+
+
+
+
+
+/*
+addEventListener("keyup", function (e) {
+	keysPressed[e.keyCode] = true;
+}, false);
+// Update game objects
+var update = function (modifier) {
+	if (38 in keysPressed) { // Player holding up
+		moveUp()
+	}
+	if (40 in keysPressed) { // Player holding down
+		moveDown()
+	}
+	if (37 in keysPressed) { // Player holding left
+		moveLeft()
+	}
+	if (39 in keysPressed) { // Player holding right
+		moveRight()
+	}
+}
+*/
+
+
+
+
+
+//gives error when run but if you refresh error goes away
+// why isnt global x changes in function displayed in ctx.fillRect ??
