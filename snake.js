@@ -8,6 +8,7 @@ var keysPressed= {};
 var moveDirection = {};
 var modifier = 1
 
+
 var Canvas = document.getElementById("mycanvas");
 var ctx = Canvas.getContext("2d")
 ctx.fillStyle = "#FF0000";
@@ -35,6 +36,7 @@ function moveRight() {
 					ctx.fillStyle = "#FF0000";
 	 				x +=1*modifier;
 	 				ctx.clearRect(x-(2+z),y,1,6)
+	 				testEvilBarrier()
 					
 				}
 				else if (x=1147)
@@ -65,6 +67,7 @@ function moveLeft() {
 					ctx.fillStyle = "#FF0000";
 				 	x -=1*modifier;
 				 	ctx.clearRect(x+(6+z),y,6,6)
+				 	testEvilBarrier()
 					
 				}
 				else if (x=1)
@@ -93,6 +96,7 @@ function moveUp() {
 					ctx.fillStyle = "#FF0000";
 				 	y -=1*modifier;
 				 	ctx.fillRect( x, y,5,5); 
+				 	testEvilBarrier()
 				}
 				else if (y= -5)
 				{
@@ -123,7 +127,9 @@ function moveDown() {
 					ctx.fillRect( x, y,5,7);
 					ctx.fillStyle = "#FF0000";
 	 				y +=1*modifier;
-	 				ctx.clearRect(x,y-(5+z),6,6); 
+	 				ctx.clearRect(x,y-(5+z),6,6);
+	 				testEvilBarrier() 
+	 				
 						//clearRect(0,0,1139,489)
 				}		
 				else if (y=489)
@@ -259,8 +265,15 @@ function FoodHack () {
 	ctx.clearRect(0,0,1139,489)
 	ctx.fillStyle = "#000000";
 	ctx.fillRect(q,r,5,5)
+
 	ctx.fillStyle = "#00FF00";
 	ctx.fillRect(b,n,10,10)
+
+	ctx.fillStyle = "#FFD700";
+	ctx.fillRect(xONE,0, 1 ,489 )
+	ctx.fillRect(0,yONE, 1139 ,1 )
+	ctx.fillRect(xTWO,0, 1 ,489 )
+	ctx.fillRect(0,yTWO,1139 , 1 )
 }
 
 
@@ -284,6 +297,35 @@ function eatBigFood () {
 		z+=12
 	}
 }
+
+function generateEvilBarrier () {
+
+	xONE = Math.ceil(Math.random()*1137)
+	yONE = Math.ceil(Math.random()*487)
+	xTWO = Math.ceil(Math.random()*1137)
+	yTWO = Math.ceil(Math.random()*487)
+
+	ctx.fillStyle = "#FFD700";
+	ctx.fillRect( xONE,0, 1 ,489 )
+	ctx.fillRect(0, yONE , 1139 ,1 )
+	ctx.fillRect(xTWO,0, 1 ,489 )
+	ctx.fillRect(0, yTWO,1139 , 1 )
+}
+
+
+generateEvilBarrier()
+
+function testEvilBarrier() {
+	if ((Math.abs(x-xONE) < 2) || (Math.abs(y-yONE) < 2) ) {
+		alert("You touched the evil barrier. You Lose !")
+		
+	}
+	if ((Math.abs(x-xTWO) < 2) || (Math.abs(y-yTWO) < 2) ) {
+		alert("You touche the evil barrier. You Lose!")
+		
+	}
+}
+
 
 
 
