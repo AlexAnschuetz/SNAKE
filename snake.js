@@ -16,17 +16,12 @@ var keyCheckArray = [30, 30];
 var displayBarrier = function(){
 	console.log("running displayBarrier")
 	ctx.fillStyle = "#FFD700";
-	ctx.fillRect( xONE,0, 1 ,489 )
-	ctx.fillRect(0, yONE , 1139 ,1 )
-	ctx.fillRect(xTWO,0, 1 ,489 )
-	ctx.fillRect(0, yTWO,1139 , 1 )
+	ctx.fillRect( xONE,0, 3 ,489 )
+	ctx.fillRect(0, yONE , 1139 ,3 )
+	ctx.fillRect(xTWO,0, 3 ,489 )
+	ctx.fillRect(0, yTWO,1139 , 3 )
 }
-var removeBarrier = function () {
-	ctx.clearRect( xONE,0, 1 ,489 )
-	ctx.clearRect(0, yONE , 1139 ,1 )
-	ctx.clearRect(xTWO,0, 1 ,489 )
-	ctx.clearRect(0, yTWO,1139 , 1 )
-}
+
 function increaseDifficulty() {
 	// modifier += .1
 }
@@ -208,7 +203,7 @@ function enableArrowKeys() {
  function generateFood () {
  	 q = Math.ceil(Math.random()*1137)
  	 r = Math.ceil(Math.random()*487)
- 	ctx.fillStyle = "#000000";
+ 	ctx.fillStyle = "#ffffff";
 	ctx.fillRect(q,r,5,5)
 }
  function eatFood () {
@@ -224,7 +219,7 @@ function enableArrowKeys() {
 function FoodHack () {
 	//if (e.keyCode == "40" || "37" || "38" || "39") {
 	ctx.clearRect(0,0,1139,489)
-	ctx.fillStyle = "#000000";
+	ctx.fillStyle = "#ffffff";
 	ctx.fillRect(q,r,5,5)
 	ctx.fillStyle = "#00FF00";
 	ctx.fillRect(b,n,10,10)
@@ -235,8 +230,8 @@ function FoodHack () {
 	ctx.fillRect(0,yTWO,1139 , 1 ) */
 }
 function generateBigFood () {
-	b = Math.ceil(Math.random()*1137)
-	n = Math.ceil(Math.random()*487)
+	b = Math.ceil(Math.random()*1130)
+	n = Math.ceil(Math.random()*480)
 	ctx.fillStyle = "#00FF00";
 	ctx.fillRect(b,n,10,10)
 }
@@ -269,10 +264,10 @@ setInterval(generateEvilBarrier, 10000)
 // setTimeout(clearInterval(displayBarrier), 60000)
 // setTimeout(makeNull,60000)
 function makeNull () {
-	xONE = null
-	yONE = null
-	xTWO = null
-	yTWO = null
+	xONE = -5
+	yONE = -5
+	xTWO = -5
+	yTWO = -5
 }
 function testEvilBarrier() {
 	if ((Math.abs(x-xONE) < 2) || (Math.abs(y-yONE) < 2) ) {
@@ -296,6 +291,7 @@ document.addEventListener('keydown', function(m) {
 } ) 
 
 function disallowUTurns() {
+	if (clicked == 1) {
 	if (keyCheckArray.toString() ==  [37,39].toString() ) {
 		alert("Snake ate itself. Sorry try again")
 		location.reload()	
@@ -314,6 +310,7 @@ function disallowUTurns() {
  		alert("Snake ate itself. Sorry try again")
 		location.reload()
  	}
+ 	};
  	
 }
 
@@ -323,26 +320,3 @@ generateFood()
 generateBigFood()
 setInterval(disallowUTurns, 100)
 
-
-/*
-addEventListener("keyup", function (e) {
-	keysPressed[e.keyCode] = true;
-}, false);
-// Update game objects
-var update = function (modifier) {
-	if (38 in keysPressed) { // Player holding up
-		moveUp()
-	}
-	if (40 in keysPressed) { // Player holding down
-		moveDown()
-	}
-	if (37 in keysPressed) { // Player holding left
-		moveLeft()
-	}
-	if (39 in keysPressed) { // Player holding right
-		moveRight()
-	}
-}
-*/ // sup
-//gives error when run but if you refresh error goes away
-// why isnt global x changes in function displayed in ctx.fillRect ??
