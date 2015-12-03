@@ -23,36 +23,37 @@ var displayBarrier = function(){
 }
 //the above displays the location of the barrier on screen so user can know where not to go
 
+//the below function adds to the difficulty (speed) of the snake. this function is called at an interval
 function increaseDifficulty() {
 	 modifier += .1
 }
-function moveRight() {
+function moveRight() { //this function is called by a keypress on right arrow
 	if (moveDirection != "right") {
-		moveDirection="right";
-		if (moveDirection == "right") {
-			var moveTime = setInterval(function(){
+		moveDirection="right"; //puts direction as "right". helps know what im trying to do
+		if (moveDirection == "right") { 
+			var moveTime = setInterval(function(){ //while direction is right (invoked by keypress), run following on interval
 				if( x<1147) {
-					 eatFood()
-					 eatBigFood()
-					ctx.fillRect( x, y,5,5); 
-					ctx.fillStyle = "#FF0000";
-	 				x +=1*modifier;
-	 				ctx.clearRect(x-(2+size),y,1*modifier,6);
-	 				testEvilBarrier()
+					 eatFood() //constantly checking if food is nearby / eatable
+					 eatBigFood() // constantly checking the same for bigFood
+					ctx.fillRect( x, y,5,5);  //constantly illustrating the snake
+					ctx.fillStyle = "#FF0000"; //snake is colored red
+	 				x +=1*modifier; //modifies speed as a function of modifier variable
+	 				ctx.clearRect(x-(2+size),y,1*modifier,6); //initial attempt at clearing snakes trail. keeps up with modified
+	 				testEvilBarrier() //constantly checking if snake is crossing evil barrier
 	 				
 	 				
 					
 				}
 				else if (x=1147)
 				{
-					x=0;
-					FoodHack()
+					x=0; //if snake reaches end of the board, reset snake at other side of axis
+					FoodHack() //clearing board and redrawing food. helps remove snake trail
 				
 				}
-				if (moveDirection != "right") {
-					clearInterval(moveTime)
+				if (moveDirection != "right") { //when moveDirection changes (caused by another arrow press) this stops running the above loop
+					clearInterval(moveTime) //clears interval on movetime which stops moving the snake to the right.
 				}
-			}, framelength)
+			}, framelength) // runs through the inner loop at the frequency of assigned wave length
 		}
 	}
 }
