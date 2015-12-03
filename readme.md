@@ -7,6 +7,7 @@ For my project one I decided to recreate the game of snake. The goal is to navig
 
 Two types of food exist for the snake to eat. The white is smaller and harder to find, worth 50 points as shown by the key. The green food is easier to spot and worth 25 points. The white food makes the snake size as well as the user's score increase more than the green food.
 These basic instructions can all be referenced on screen in the key
+
 ![key](./key.png) 
 
 The user controls the snake using the arrow keys on the keyboard. Upon press, the snake will travel in that direction until another arrow key is pressed.
