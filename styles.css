@@ -1,6 +1,6 @@
 #gameArea {
-	border: 2px solid black;
-width: 1149px;
+	border: 3px solid black;
+	width: 1149px;
 	height: 499px;
 	position: absolute;
 	left: 225px;
@@ -20,7 +20,7 @@ width: 1149px;
 }
 
 #mycanvas {
-	border: 1px solid;
+	border: 3px solid;
 	border-color: #00BFFF;
 	left: 4px;
 	top: 4px;
