@@ -7,25 +7,25 @@ var score = 0;
 var clicked = 0;
 var keysPressed= {};
 var moveDirection = {};
-var modifier = 1 //modifies snake speed
+var modifier = 1; //modifies snake speed
 var Canvas = document.getElementById("mycanvas");
-var ctx = Canvas.getContext("2d")
-ctx.fillStyle = "#FF0000";
-ctx.fillRect(x,y,5,5)
+var ctx = Canvas.getContext("2d");
+	ctx.fillStyle = "#FF0000";
+	ctx.fillRect(x,y,5,5)
 var keyCheckArray = [30, 30]; // starts array as 2 item array. shifts and pops to this array keep it a 2 item array
 var displayBarrier = function(){
 	console.log("running displayBarrier")
 	ctx.fillStyle = "#FFD700";
-	ctx.fillRect( xONE,0, 3 ,489 )
-	ctx.fillRect(0, yONE , 1139 ,3 )
-	ctx.fillRect(xTWO,0, 3 ,489 )
-	ctx.fillRect(0, yTWO,1139 , 3 )
+	ctx.fillRect( xONE,0, 3 ,489 );
+	ctx.fillRect(0, yONE , 1139 ,3 );
+	ctx.fillRect(xTWO,0, 3 ,489 );
+	ctx.fillRect(0, yTWO,1139 , 3 );
 }
 //the above displays the location of the barrier on screen so user can know where not to go
 
 //the below function adds to the difficulty (speed) of the snake. this function is called at an interval
 function increaseDifficulty() {
-	 modifier += .1
+	 modifier += .1;
 }
 function moveRight() { //this function is called by a keypress on right arrow
 	if (moveDirection != "right") {
@@ -33,8 +33,8 @@ function moveRight() { //this function is called by a keypress on right arrow
 		if (moveDirection == "right") { 
 			var moveTime = setInterval(function(){ //while direction is right (invoked by keypress), run following on interval
 				if( x<1147) {
-					 eatFood() //constantly checking if food is nearby / eatable
-					 eatBigFood() // constantly checking the same for bigFood
+					eatFood() //constantly checking if food is nearby / eatable
+					eatBigFood() // constantly checking the same for bigFood
 					ctx.fillRect( x, y,5,5);  //constantly illustrating the snake
 					ctx.fillStyle = "#FF0000"; //snake is colored red
 	 				x +=1*modifier; //modifies speed as a function of modifier variable
@@ -68,7 +68,7 @@ function moveLeft() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 				 	x -=1*modifier;
-				 	ctx.clearRect(x+(6+size),y,6*modifier,6)
+				 	ctx.clearRect(x+(6+size),y,6*modifier,6);
 				 	testEvilBarrier()
 				 	
 				 	
@@ -209,18 +209,18 @@ function enableArrowKeys() {
 
 //below to functions fit same description as generateBigFood and eatBigFood
  function generateFood () {
- 	 q = Math.ceil(Math.random()*1137)
- 	 r = Math.ceil(Math.random()*487)
- 	ctx.fillStyle = "#ffffff";
-	ctx.fillRect(q,r,5,5)
+ 	 q = Math.ceil(Math.random()*1130);
+ 	 r = Math.ceil(Math.random()*480);
+ 		ctx.fillStyle = "#ffffff";
+		ctx.fillRect(q,r,5,5);
 }
  function eatFood () {
  	if ((Math.abs(x-q) < 5) && (Math.abs(y-r) < 5)) {
  		ctx.clearRect(q,r,5,5);
- 		score+=50
+ 		score+=50;
  		document.getElementById('score').innerHTML = score 
  		generateFood()
- 		size+=12
+ 		size+=12;
  
  	}
 }
@@ -239,24 +239,24 @@ function generateBigFood () {
 	b = Math.ceil(Math.random()*1130) //randdom x coordinate for food
 	n = Math.ceil(Math.random()*480) //random y coordinte for food
 	ctx.fillStyle = "#00FF00";
-	ctx.fillRect(b,n,10,10)   //displays in food on screen
+	ctx.fillRect(b,n,10,10);   //displays in food on screen
 }
 
 function eatBigFood () {
 	if((Math.abs(x-b) < 10) && (Math.abs(y-n) < 10) ) { //checks if snakes position is near enough to food to eat
 		ctx.clearRect(b,n,10,10) //removes food
-		score+=25 //adds points to score
+		score+=25; //adds points to score
 		document.getElementById('score').innerHTML = score //write score to screen
 		generateBigFood() //generates new food
-		size+=6 //adds 6 pixels to snake size
+		size+=6; //adds 6 pixels to snake size
 	}
 }
 function generateEvilBarrier() {
  	if (clicked == 1) {
-		xONE = Math.ceil(Math.random()*1130)
-		yONE = Math.ceil(Math.random()*480)
-		xTWO = Math.ceil(Math.random()*1130)
-		yTWO = Math.ceil(Math.random()*480)
+		xONE = Math.ceil(Math.random()*1130);
+		yONE = Math.ceil(Math.random()*480);
+		xTWO = Math.ceil(Math.random()*1130);
+		yTWO = Math.ceil(Math.random()*480);
 		//everytime this function runs, new coordinates for evilbarrier are assigned
 	
 	setInterval(displayBarrier, 10) //displays barrier evevery .01 seconds. needs to run more frequently
@@ -273,10 +273,10 @@ function generateEvilBarrier() {
 
 //function to make the barrier coordinates null. see generateEvilBarrier comments for more insight
 function makeNull () {
-	xONE = 2000
-	yONE = 1000
-	xTWO = 2000
-	yTWO = 1000
+	xONE = 2000;
+	yONE = 1000;
+	xTWO = 2000;
+	yTWO = 1000;
 }
 
 //the below function checks if the snake has crossed the barrier by comparing location of snake and barrier
