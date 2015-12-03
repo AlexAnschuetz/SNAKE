@@ -209,10 +209,10 @@ function enableArrowKeys() {
  function eatFood () {
  	if ((Math.abs(x-q) < 5) && (Math.abs(y-r) < 5)) {
  		ctx.clearRect(q,r,5,5);
- 		t+=25
+ 		t+=50
  		document.getElementById('score').innerHTML = t 
  		generateFood()
- 		z+=6
+ 		z+=12
  
  	}
 }
@@ -238,10 +238,10 @@ function generateBigFood () {
 function eatBigFood () {
 	if((Math.abs(x-b) < 10) && (Math.abs(y-n) < 10) ) {
 		ctx.clearRect(b,n,10,10)
-		t+=50
+		t+=25
 		document.getElementById('score').innerHTML = t
 		generateBigFood()
-		z+=12
+		z+=6
 	}
 }
 function generateEvilBarrier() {
@@ -319,4 +319,5 @@ clickStartMandatory()
 generateFood()
 generateBigFood()
 setInterval(disallowUTurns, 100)
+setInterval(FoodHack, 75)
 
