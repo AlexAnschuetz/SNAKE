@@ -265,10 +265,10 @@ setInterval(generateEvilBarrier, 10000)
 // setTimeout(clearInterval(displayBarrier), 60000)
 // setTimeout(makeNull,60000)
 function makeNull () {
-	xONE = -5
-	yONE = -5
-	xTWO = -5
-	yTWO = -5
+	xONE = 2000
+	yONE = 1000
+	xTWO = 2000
+	yTWO = 1000
 }
 function testEvilBarrier() {
 	if ((Math.abs(x-xONE) < 2) || (Math.abs(y-yONE) < 2) ) {
