@@ -257,7 +257,7 @@ function generateEvilBarrier() {
 		yTWO = Math.ceil(Math.random()*487)
 		//everytime evil barrier is generated i want to run the following for some amount of time
 	
-	setInterval(displayBarrier, 100)
+	setInterval(displayBarrier, 10)
 	setTimeout(clearInterval(displayBarrier), 5000)
 	setTimeout(makeNull, 5000)
 
@@ -275,13 +275,13 @@ function makeNull () {
 	yTWO = null
 }
 function testEvilBarrier() {
-	if ((Math.abs(x-xONE) < 10) || (Math.abs(y-yONE) < 10) ) {
+	if ((Math.abs(x-xONE) < 2) || (Math.abs(y-yONE) < 2) ) {
 		alert("You touched the evil barrier. You Lose !")
 		location.reload()
 		
 		
 	}
-	if ((Math.abs(x-xTWO) < 10) || (Math.abs(y-yTWO) < 10) ) {
+	if ((Math.abs(x-xTWO) < 2) || (Math.abs(y-yTWO) < 2) ) {
 		
 		alert("You touched the evil barrier. You Lose!")
 		location.reload()
