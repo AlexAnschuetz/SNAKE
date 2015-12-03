@@ -16,7 +16,9 @@ Below is an image of what the game looks like at the start of play. The start bu
 
 ![start](./start.png)
 
+Here is a screenshot during play. You can see the player has accumulated a score and the snake has grown in size.
 
+![start](./midPlay.png)
 
 ## My Wireframe
 To help more easily implement code to create this game, I have created a wireframe. This shows some features and functionality I plan to incorporate in my game. All red is text indicating functionality, this text wont actually show on the final product.
