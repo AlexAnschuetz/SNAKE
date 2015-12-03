@@ -12,6 +12,7 @@ var Canvas = document.getElementById("mycanvas");
 var ctx = Canvas.getContext("2d")
 ctx.fillStyle = "#FF0000";
 ctx.fillRect(x,y,5,5)
+var keyCheckArray = [30, 30];
 var displayBarrier = function(){
 	console.log("running displayBarrier")
 	ctx.fillStyle = "#FFD700";
@@ -276,15 +277,28 @@ function makeNull () {
 function testEvilBarrier() {
 	if ((Math.abs(x-xONE) < 10) || (Math.abs(y-yONE) < 10) ) {
 		alert("You touched the evil barrier. You Lose !")
+		location.reload()
+		
+		
 	}
 	if ((Math.abs(x-xTWO) < 10) || (Math.abs(y-yTWO) < 10) ) {
+		
 		alert("You touched the evil barrier. You Lose!")
+		location.reload()
 	}
 }
 startButton()
 clickStartMandatory()
 generateFood()
 generateBigFood()
+
+document.addEventListener('keydown', function(m) {
+  console.log(m.keyCode)
+  keyCheckArray.shift()
+  keyCheckArray.push(m.keyCode)
+} ) 
+
+
 /*
 addEventListener("keyup", function (e) {
 	keysPressed[e.keyCode] = true;
