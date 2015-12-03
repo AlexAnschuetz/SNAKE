@@ -287,16 +287,41 @@ function testEvilBarrier() {
 		location.reload()
 	}
 }
-startButton()
-clickStartMandatory()
-generateFood()
-generateBigFood()
+
 
 document.addEventListener('keydown', function(m) {
   console.log(m.keyCode)
   keyCheckArray.shift()
   keyCheckArray.push(m.keyCode)
 } ) 
+
+function disallowUTurns() {
+	if (keyCheckArray.toString() ==  [37,39].toString() ) {
+		alert("Snake ate itself. Sorry try again")
+		location.reload()	
+								}
+ 	else if (keyCheckArray.toString() == [39, 37].toString()) {
+ 		alert("Snake ate itself. Sorry try again")
+		location.reload()
+ 	}
+
+ 	else if (keyCheckArray.toString() == [38, 40].toString()) {
+ 		alert("Snake ate itself. Sorry try again")
+		location.reload()
+ 	}
+
+ 	else if (keyCheckArray.toString() == [40, 38].toString()) {
+ 		alert("Snake ate itself. Sorry try again")
+		location.reload()
+ 	}
+ 	
+}
+
+startButton()
+clickStartMandatory()
+generateFood()
+generateBigFood()
+setInterval(disallowUTurns, 100)
 
 
 /*
