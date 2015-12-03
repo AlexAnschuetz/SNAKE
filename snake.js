@@ -251,10 +251,10 @@ function eatBigFood () {
 }
 function generateEvilBarrier() {
  	if (clicked == 1) {
-		xONE = Math.ceil(Math.random()*1137)
-		yONE = Math.ceil(Math.random()*487)
-		xTWO = Math.ceil(Math.random()*1137)
-		yTWO = Math.ceil(Math.random()*487)
+		xONE = Math.ceil(Math.random()*1130)
+		yONE = Math.ceil(Math.random()*480)
+		xTWO = Math.ceil(Math.random()*1130)
+		yTWO = Math.ceil(Math.random()*480)
 		//everytime evil barrier is generated i want to run the following for some amount of time
 	
 	setInterval(displayBarrier, 10)
