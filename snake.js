@@ -2,17 +2,17 @@
 var x = 575;
 var y = 250;
 var framelength = 4;
-var z = 0;
-var t = 0;
+var size = 0;
+var score = 0;
 var clicked = 0;
 var keysPressed= {};
 var moveDirection = {};
-var modifier = 1
+var modifier = 1 //modifies snake speed
 var Canvas = document.getElementById("mycanvas");
 var ctx = Canvas.getContext("2d")
 ctx.fillStyle = "#FF0000";
 ctx.fillRect(x,y,5,5)
-var keyCheckArray = [30, 30];
+var keyCheckArray = [30, 30]; // starts array as 2 item array. shifts and pops to this array keep it a 2 item array
 var displayBarrier = function(){
 	console.log("running displayBarrier")
 	ctx.fillStyle = "#FFD700";
@@ -37,7 +37,7 @@ function moveRight() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 	 				x +=1*modifier;
-	 				ctx.clearRect(x-(2+z),y,1*modifier,6);
+	 				ctx.clearRect(x-(2+size),y,1*modifier,6);
 	 				testEvilBarrier()
 	 				
 	 				
@@ -67,7 +67,7 @@ function moveLeft() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 				 	x -=1*modifier;
-				 	ctx.clearRect(x+(6+z),y,6*modifier,6)
+				 	ctx.clearRect(x+(6+size),y,6*modifier,6)
 				 	testEvilBarrier()
 				 	
 				 	
@@ -94,7 +94,7 @@ function moveUp() {
 				if( y>-5) {
 					 eatFood()
 					 eatBigFood()
-					ctx.clearRect(x,y+(2+z),6,6*modifier)
+					ctx.clearRect(x,y+(2+size),6,6*modifier)
 					ctx.fillStyle = "#FF0000";
 				 	y -=1*modifier;
 				 	ctx.fillRect( x, y,5,5); 
@@ -127,7 +127,7 @@ function moveDown() {
 					ctx.fillRect( x, y,5,7);
 					ctx.fillStyle = "#FF0000";
 	 				y +=1*modifier;
-	 				ctx.clearRect(x,y-(5+z),6,6*modifier);
+	 				ctx.clearRect(x,y-(5+size),6,6*modifier);
 	 				testEvilBarrier()
 	 				
 	 				
@@ -216,10 +216,10 @@ function enableArrowKeys() {
  function eatFood () {
  	if ((Math.abs(x-q) < 5) && (Math.abs(y-r) < 5)) {
  		ctx.clearRect(q,r,5,5);
- 		t+=50
- 		document.getElementById('score').innerHTML = t 
+ 		score+=50
+ 		document.getElementById('score').innerHTML = score 
  		generateFood()
- 		z+=12
+ 		size+=12
  
  	}
 }
@@ -244,10 +244,10 @@ function generateBigFood () {
 function eatBigFood () {
 	if((Math.abs(x-b) < 10) && (Math.abs(y-n) < 10) ) { //checks if snakes position is near enough to food to eat
 		ctx.clearRect(b,n,10,10) //removes food
-		t+=25 //adds points to score
-		document.getElementById('score').innerHTML = t //write score to screen
+		score+=25 //adds points to score
+		document.getElementById('score').innerHTML = score //write score to screen
 		generateBigFood() //generates new food
-		z+=6 //adds 6 pixels to snake size
+		size+=6 //adds 6 pixels to snake size
 	}
 }
 function generateEvilBarrier() {
