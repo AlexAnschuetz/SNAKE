@@ -25,7 +25,7 @@ width: 1149px;
 	left: 4px;
 	top: 4px;
 	position: absolute;
-	background-image: url("./cobblestoneBackground.jpg");
+	background-image: url("./backgroun1.jpg");
 	
 }
 
@@ -36,7 +36,7 @@ width: 1149px;
 }
 
 body {
-	background-color: steelblue;
+	background-image: url("./background2.jpg");
 
 }
 
