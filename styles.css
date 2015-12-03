@@ -6,8 +6,22 @@ width: 1149px;
 	left: 225px;
 }
 
+.rainbow-text {                                                                                                                                                                           
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: -webkit-gradient(linear,  left top,  left bottom, 
+        color-stop(0.00, red), 
+        color-stop(16%, orange),
+        color-stop(32%, yellow),
+        color-stop(48%, green),
+        color-stop(60%, blue),
+        color-stop(76%, indigo),
+        color-stop(1.00, violet));
+}
+
 #mycanvas {
-	border: 1px solid blue;
+	border: 1px solid;
+	border-color: #00BFFF;
 	left: 4px;
 	top: 4px;
 	position: absolute;
@@ -47,6 +61,9 @@ h1 {
 	display: inline;
 	height: 90px;
 	width: 150px;
+	font-family: optima;
+	font-weight: bold;
+
 }
 
 #positionMe {
@@ -55,8 +72,37 @@ h1 {
 	position: absolute;
 	left: 750px;
 	top: 650px;
-	font-weight: bold;
+	
 	font-size: 30px;
+	font-family: optima
 
 }
 
+#footer {
+	background-color: white;
+	color: black;
+	width: 165px;
+	height: 220px;
+	position: absolute;
+	left: 30px;
+	top: 250px;
+	border-style: ridge;
+	border-color: #00BFFF;
+}
+
+#centerMe {
+	text-align: center;
+	font-size: 125%;
+	padding-top: 15px;
+	font-family: optima
+
+
+
+}
+
+#goldHashtag {
+	color: #FFD700;
+	display: inline-block;
+	
+
+}
