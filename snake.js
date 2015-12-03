@@ -21,6 +21,7 @@ var displayBarrier = function(){
 	ctx.fillRect(xTWO,0, 3 ,489 )
 	ctx.fillRect(0, yTWO,1139 , 3 )
 }
+//the above displays the location of the barrier on screen so user can know where not to go
 
 function increaseDifficulty() {
 	 modifier += .1
@@ -113,7 +114,7 @@ function moveUp() {
 			}, framelength)
 		}
 	}
-	// moveUp()
+	
 }
 function moveDown() {
 	if (moveDirection != "down") {
@@ -131,7 +132,7 @@ function moveDown() {
 	 				
 	 				
 	 				
-						//clearRect(0,0,1139,489)
+					
 				}		
 				else if (y=489)
 				{
@@ -146,9 +147,10 @@ function moveDown() {
 		}
 	}
 }
+
+//below function starts snake in random direction after start button is pressed
 function startButton () {
 	var rando = Math.ceil(Math.random()*4)
-//attempting to create start button that sends square in random direction upon press
 	document.getElementById("btn").addEventListener("click", function(){
     
     	if (rando === 4) {
@@ -165,19 +167,21 @@ function startButton () {
     	}
 	});
 }
-// Handle keyboard controls
+
+// below function makes start button the only way to start game
 function clickStartMandatory() {
-	document.getElementById('btn').addEventListener("click", function() {
-		clicked = 1;
-		enableArrowKeys()
-		generateEvilBarrier()
-		setInterval(increaseDifficulty, 5000)
-		setInterval(FoodHack, 75)
-	//above makes snake speed up as game goes on
-	//setInterval( qrFoodHack, 100)
-	//resets booard frequently to clear snake trail
+	document.getElementById('btn').addEventListener("click", function() { //listens for click on start button
+		clicked = 1; //sets global clicked to equal 1
+		enableArrowKeys() //enables arrow keys
+		generateEvilBarrier() //generates first evil barrier
+		setInterval(increaseDifficulty, 5000) //above makes snake speed up every 5 seconds
+		setInterval(FoodHack, 75) // clears board and rewrites food every .075 seconds. helps remove snake trail
+	
+
 	})
 }
+
+//once start button has clicked, this button coordinates pressing of arrow key with movement in that direction
 function enableArrowKeys() {
 	if (clicked === 1) {
 		addEventListener("keydown", checkKeyPressed);
@@ -201,6 +205,8 @@ function enableArrowKeys() {
 		}
 	}
 }
+
+//below to functions fit same description as generateBigFood and eatBigFood
  function generateFood () {
  	 q = Math.ceil(Math.random()*1137)
  	 r = Math.ceil(Math.random()*487)
@@ -217,32 +223,31 @@ function enableArrowKeys() {
  
  	}
 }
+
+//the below function clears the board and reprints the food. in essence this removes snakes trail
 function FoodHack () {
-	//if (e.keyCode == "40" || "37" || "38" || "39") {
+	
 	ctx.clearRect(0,0,1139,489)
 	ctx.fillStyle = "#ffffff";
 	ctx.fillRect(q,r,5,5)
 	ctx.fillStyle = "#00FF00";
 	ctx.fillRect(b,n,10,10)
-	/*ctx.fillStyle = "#FFD700";
-	ctx.fillRect(xONE,0, 1 ,489 )
-	ctx.fillRect(0,yONE, 1139 ,1 )
-	ctx.fillRect(xTWO,0, 1 ,489 )
-	ctx.fillRect(0,yTWO,1139 , 1 ) */
+	
 }
 function generateBigFood () {
-	b = Math.ceil(Math.random()*1130)
-	n = Math.ceil(Math.random()*480)
+	b = Math.ceil(Math.random()*1130) //randdom x coordinate for food
+	n = Math.ceil(Math.random()*480) //random y coordinte for food
 	ctx.fillStyle = "#00FF00";
-	ctx.fillRect(b,n,10,10)
+	ctx.fillRect(b,n,10,10)   //displays in food on screen
 }
+
 function eatBigFood () {
-	if((Math.abs(x-b) < 10) && (Math.abs(y-n) < 10) ) {
-		ctx.clearRect(b,n,10,10)
-		t+=25
-		document.getElementById('score').innerHTML = t
-		generateBigFood()
-		z+=6
+	if((Math.abs(x-b) < 10) && (Math.abs(y-n) < 10) ) { //checks if snakes position is near enough to food to eat
+		ctx.clearRect(b,n,10,10) //removes food
+		t+=25 //adds points to score
+		document.getElementById('score').innerHTML = t //write score to screen
+		generateBigFood() //generates new food
+		z+=6 //adds 6 pixels to snake size
 	}
 }
 function generateEvilBarrier() {
@@ -251,25 +256,29 @@ function generateEvilBarrier() {
 		yONE = Math.ceil(Math.random()*480)
 		xTWO = Math.ceil(Math.random()*1130)
 		yTWO = Math.ceil(Math.random()*480)
-		//everytime evil barrier is generated i want to run the following for some amount of time
+		//everytime this function runs, new coordinates for evilbarrier are assigned
 	
-	setInterval(displayBarrier, 10)
+	setInterval(displayBarrier, 10) //displays barrier evevery .01 seconds. needs to run more frequently
+	//than foodhack because foodhack clears entire board and reprints the food.
 	setTimeout(clearInterval(displayBarrier), 5000)
+	//5 seconds after generate evilbarrier is invovked, the barriers stop being displayed
 	setTimeout(makeNull, 5000)
-
+	//5 seconds after generate evilbarrier is invoked, the barrier's coordinate values are made to be
+	//huge so that the user cannot cross the boundaries. i.e the boundaries do not exist on game board
 	}
 }
 
 
-setInterval(generateEvilBarrier, 10000)
-// setTimeout(clearInterval(displayBarrier), 60000)
-// setTimeout(makeNull,60000)
+
+//function to make the barrier coordinates null. see generateEvilBarrier comments for more insight
 function makeNull () {
 	xONE = 2000
 	yONE = 1000
 	xTWO = 2000
 	yTWO = 1000
 }
+
+//the below function checks if the snake has crossed the barrier by comparing location of snake and barrier
 function testEvilBarrier() {
 	if ((Math.abs(x-xONE) < 2) || (Math.abs(y-yONE) < 2) ) {
 		alert("You touched the evil barrier. You Lose !")
@@ -285,12 +294,17 @@ function testEvilBarrier() {
 }
 
 
+
+
 document.addEventListener('keydown', function(m) {
   console.log(m.keyCode)
   keyCheckArray.shift()
   keyCheckArray.push(m.keyCode)
 } ) 
+// the above listens for up/down left/right arrow presses in succession. listening for if a u turn has been made
+// keeps an array of the last two keypresses
 
+//the below function gives an alert if the array tells that the last two keypresses caused a uturn
 function disallowUTurns() {
 	if (clicked == 1) {
 	if (keyCheckArray.toString() ==  [37,39].toString() ) {
@@ -315,10 +329,13 @@ function disallowUTurns() {
  	
 }
 
+
+
 startButton()
 clickStartMandatory()
 generateFood()
 generateBigFood()
-setInterval(disallowUTurns, 100)
+setInterval(generateEvilBarrier, 10000) // generates new evil barrier every 10 seconds
+setInterval(disallowUTurns, 100) // checks if u turn has been made every .1 seconds
 
 
