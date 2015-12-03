@@ -23,7 +23,7 @@ var displayBarrier = function(){
 }
 
 function increaseDifficulty() {
-	// modifier += .1
+	 modifier += .1
 }
 function moveRight() {
 	if (moveDirection != "right") {
@@ -172,6 +172,7 @@ function clickStartMandatory() {
 		enableArrowKeys()
 		generateEvilBarrier()
 		setInterval(increaseDifficulty, 5000)
+		setInterval(FoodHack, 75)
 	//above makes snake speed up as game goes on
 	//setInterval( qrFoodHack, 100)
 	//resets booard frequently to clear snake trail
@@ -319,5 +320,5 @@ clickStartMandatory()
 generateFood()
 generateBigFood()
 setInterval(disallowUTurns, 100)
-setInterval(FoodHack, 75)
+
 
