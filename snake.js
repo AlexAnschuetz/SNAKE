@@ -38,7 +38,7 @@ function moveRight() { //this function is called by a keypress on right arrow
 					ctx.fillRect( x, y,5,5);  //constantly illustrating the snake
 					ctx.fillStyle = "#FF0000"; //snake is colored red
 	 				x +=1*modifier; //modifies speed as a function of modifier variable
-	 				ctx.clearRect(x-(2+size),y,1*modifier,6); //initial attempt at clearing snakes trail. keeps up with modified
+	 				ctx.clearRect(x-2*(2+size),y,1,6); //initial attempt at clearing snakes trail. keeps up with modified
 	 				testEvilBarrier() //constantly checking if snake is crossing evil barrier
 	 				
 	 				
@@ -68,7 +68,7 @@ function moveLeft() {
 					ctx.fillRect( x, y,5,5); 
 					ctx.fillStyle = "#FF0000";
 				 	x -=1*modifier;
-				 	ctx.clearRect(x+(6+size),y,6*modifier,6);
+				 	ctx.clearRect(x+2*(6+size),y,6,6);
 				 	testEvilBarrier()
 				 	
 				 	
@@ -95,7 +95,7 @@ function moveUp() {
 				if( y>-5) {
 					 eatFood()
 					 eatBigFood()
-					ctx.clearRect(x,y+(2+size),6,6*modifier)
+					ctx.clearRect(x,y+2*(2+size),6,6)
 					ctx.fillStyle = "#FF0000";
 				 	y -=1*modifier;
 				 	ctx.fillRect( x, y,5,5); 
@@ -128,7 +128,7 @@ function moveDown() {
 					ctx.fillRect( x, y,5,7);
 					ctx.fillStyle = "#FF0000";
 	 				y +=1*modifier;
-	 				ctx.clearRect(x,y-(5+size),6,6*modifier);
+	 				ctx.clearRect(x,y-2*(5+size),6,6);
 	 				testEvilBarrier()
 	 				
 	 				
@@ -176,7 +176,7 @@ function clickStartMandatory() {
 		enableArrowKeys() //enables arrow keys
 		generateEvilBarrier() //generates first evil barrier
 		setInterval(increaseDifficulty, 5000) //above makes snake speed up every 5 seconds
-		setInterval(FoodHack, 75) // clears board and rewrites food every .075 seconds. helps remove snake trail
+		
 	
 
 	})
@@ -190,6 +190,7 @@ function enableArrowKeys() {
 			if (e.keyCode == "37") {
 				moveLeft()
 				FoodHack()
+				
 			}
 			if (e.keyCode == "38") {
 				moveUp()
@@ -201,7 +202,7 @@ function enableArrowKeys() {
 			}
 			if (e.keyCode == "40") {
 				moveDown()
-				FoodHack()	
+				FoodHack()
 			}
 		}
 	}
@@ -233,6 +234,7 @@ function FoodHack () {
 	ctx.fillRect(q,r,5,5)
 	ctx.fillStyle = "#00FF00";
 	ctx.fillRect(b,n,10,10)
+
 	
 }
 function generateBigFood () {
@@ -262,7 +264,8 @@ function generateEvilBarrier() {
 	setInterval(displayBarrier, 10) //displays barrier evevery .01 seconds. needs to run more frequently
 	//than foodhack because foodhack clears entire board and reprints the food.
 	setTimeout(clearInterval(displayBarrier), 5000)
-	//5 seconds after generate evilbarrier is invovked, the barriers stop being displayed
+	setTimeout(FoodHack,5050)
+	//even tho displayBarrier has stopped running every 10ms, FoodHack is run to clear the last display which exists until cleared
 	setTimeout(makeNull, 5000)
 	//5 seconds after generate evilbarrier is invoked, the barrier's coordinate values are made to be
 	//huge so that the user cannot cross the boundaries. i.e the boundaries do not exist on game board
