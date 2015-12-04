@@ -342,4 +342,6 @@ generateBigFood()
 setInterval(generateEvilBarrier, 10000) // generates new evil barrier every 10 seconds
 setInterval(disallowUTurns, 100) // checks if u turn has been made every .1 seconds
 
+// some problems. sometimes barriers seem to ghost display. think has to do with when FoodHack runs
+
 
