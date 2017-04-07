@@ -1,4 +1,4 @@
-##Project 1 - SNAKE
+## Project 1 - SNAKE
 
 For my project one I decided to recreate the game of snake. The goal is to navigate your snake around to eat as much food as it can without running into itself. My version is a bit different, instead of the snake avoiding itself, the challenge is to avoid evil barriers. The evil barriers are randomly generated every 10 seconds and exist for 5 seconds.
 
